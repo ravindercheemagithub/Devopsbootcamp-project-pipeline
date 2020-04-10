@@ -19,7 +19,7 @@ stages:
     - task: Docker@2
       displayName: Build an image
       inputs:
-        containerRegistry: 'ravinder-docker-hub-connection'
+        containerRegistry: 'ravinder-dockerhub'
         repository: 'ravindercheemadevops/exchange-webservice'
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
