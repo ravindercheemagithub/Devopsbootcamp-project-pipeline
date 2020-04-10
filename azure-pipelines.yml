@@ -20,7 +20,7 @@ stages:
       displayName: Build an image
       inputs:
         containerRegistry: 'ravinder-docker-hub-connection'
-        repository: 'ravindercheemagithub/exchange-webservice'
+        repository: 'ravindercheemadevops/exchange-webservice'
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
         tags: '$(tag)'
