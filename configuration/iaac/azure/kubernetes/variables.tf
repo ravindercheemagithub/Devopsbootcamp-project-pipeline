@@ -7,7 +7,7 @@ variable environment {
 }
 
 variable location {
-    default = "westeurope"
+    default = "canadaeast"
 }
 
 variable node_count {

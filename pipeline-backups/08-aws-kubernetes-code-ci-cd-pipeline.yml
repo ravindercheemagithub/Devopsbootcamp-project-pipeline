@@ -20,7 +20,7 @@ stages:
       displayName: Build and Push an image
       inputs:
         containerRegistry: 'devopsbootcamp-docker-hub'
-        repository: 'ravindercheemadevops/currency-exchange-devops'
+        repository: 'ravindercheemadevops/exchange-webservice'
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
         tags: '$(tag)'
@@ -60,7 +60,7 @@ stages:
         kubernetesServiceConnection: 'aws-kubernetes-cluster-service-connection'
         namespace: 'default'
         manifests: '$(System.ArtifactsDirectory)/configuration/kubernetes/deployment.yaml'
-        containers: ravindercheemadevops/currency-exchange-devops:$(tag)
+        containers: ravindercheemadevops/exchange-webservice:$(tag)
 
 # Deploy
 # Download 

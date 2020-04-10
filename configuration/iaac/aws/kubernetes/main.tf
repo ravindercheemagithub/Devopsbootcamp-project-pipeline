@@ -1,5 +1,5 @@
 # aws --version
-# aws eks --region us-east-1 update-kubeconfig --name devopsbootcamp-cluster
+# aws eks --region us-east-2 update-kubeconfig --name devopsbootcamp-cluster
 # Uses default VPC and Subnet. Create Your Own VPC and Private Subnets for Prod Usage.
 # terraform-backend-state-devopsbootcamp-123
 # AKIA4AHVNOD7OOO6T4KI
@@ -9,7 +9,7 @@ terraform {
   backend "s3" {
     bucket = "mybucket" # Will be overridden from build
     key    = "path/to/my/key" # Will be overridden from build
-    region = "us-east-1"
+    region = "us-east-2"
   }
 }
 
@@ -33,11 +33,11 @@ module "devopsbootcamp-cluster" {
   source          = "terraform-aws-modules/eks/aws"
   cluster_name    = "devopsbootcamp-cluster"
   cluster_version = "1.14"
-  subnets         = ["subnet-3f7b2563", "subnet-4a7d6a45"] #CHANGE
+  subnets         = ["subnet-6eac8414", "subnet-7635c71d"] #CHANGE
   #subnets = data.aws_subnet_ids.subnets.ids
   vpc_id          = aws_default_vpc.default.id
 
-  #vpc_id         = "vpc-1234556abcdef"
+  #vpc_id         = "vpc-9dd71df6"
 
   node_groups = [
     {
@@ -79,5 +79,5 @@ resource "kubernetes_cluster_role_binding" "example" {
 
 # Needed to set the default region
 provider "aws" {
-  region  = "us-east-1"
+  region  = "us-east-2"
 }
