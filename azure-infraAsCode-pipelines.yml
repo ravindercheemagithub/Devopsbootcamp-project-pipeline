@@ -1,0 +1,57 @@
+trigger:
+- master
+
+resources:
+- repo: self
+
+variables:
+  tag: '$(Build.BuildId)'
+
+stages:
+- stage: Download Secure File
+  displayName: Download Secure File
+  jobs:  
+  - job: Downloadpublickey
+    displayName: Download publickey
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: DownloadSecureFile@1
+      name: publickey
+      inputs:
+        secureFile: 'azure_rsa.pub'
+- stage: Terraform Initialize
+  displayName: Terraform Init
+  jobs:  
+  - job: TerraformInit
+    displayName: Terraform Init
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: TerraformCLI@0
+      inputs:
+        command: 'init'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes'
+        commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(publickey.secureFilePath)'
+        backendType: 'azurerm'
+        backendServiceArm: 'ravinder-Azure-Resource-Manager'
+        ensureBackend: true
+        backendAzureRmResourceGroupName: 'terraform-backend-rg'
+        backendAzureRmResourceGroupLocation: 'canadaeast'
+        backendAzureRmStorageAccountName: 'storageacctdevopsbootcamp'
+        backendAzureRmContainerName: 'storageacctdevopsbootcampcontainer'
+        backendAzureRmKey: 'kubernetes-dev.tfstate'
+- stage: Terraform Initialize
+  displayName: Terraform Init
+  jobs:  
+  - job: TerraformInit
+    displayName: Terraform Init
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: TerraformCLI@0
+      inputs:
+        command: 'apply'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes'
+        environmentServiceName: 'ravinder-Azure-Resource-Manager'
+        commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(publickey.secureFilePath)'
