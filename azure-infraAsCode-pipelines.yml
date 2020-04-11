@@ -21,12 +21,6 @@ stages:
       name: azurersafile
       inputs:
         secureFile: 'azurersa'
-- stage: TerraformInitialize
-  displayName: Terraform Init
-  jobs:  
-  - job: TerraformInit
-    displayName: Terraform Init
-    steps:
     - task: TerraformCLI@0
       inputs:
         command: 'init'
@@ -40,14 +34,6 @@ stages:
         backendAzureRmStorageAccountName: 'storageacctdevops'
         backendAzureRmContainerName: 'storagedevopscontainer'
         backendAzureRmKey: 'kubernetesdev.tfstate'
-    
-
-- stage: TerraformApply
-  displayName: Terraform Apply
-  jobs:  
-  - job: TerraformApply
-    displayName: Terraform Apply
-    steps:
     - task: TerraformCLI@0
       inputs:
         command: 'apply'
