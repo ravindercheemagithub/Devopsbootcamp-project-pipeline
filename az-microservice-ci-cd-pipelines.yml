@@ -40,10 +40,19 @@ stages:
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
         tags: '$(tag)'
+    - task: SonarQubeAnalyze@4
+
+    - task: SonarQubePublish@4
+      inputs:
+        pollingTimeoutSec: '300'
+
     - task: CopyFiles@2
       inputs:
         SourceFolder: '$(System.DefaultWorkingDirectory)'
-        Contents: '**/*.yaml'
+        Contents: |
+          **/*.yaml
+          currency-exchange.jar
+          surefire-reports/*
         TargetFolder: '$(Build.ArtifactStagingDirectory)'
     - task: PublishBuildArtifacts@1
       inputs:
