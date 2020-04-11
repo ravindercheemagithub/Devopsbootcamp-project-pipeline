@@ -35,7 +35,7 @@ stages:
         backendType: 'azurerm'
         backendServiceArm: 'rc-Az-Res-Mgr'
         ensureBackend: true
-        backendAzureRmResourceGroupName: 'terraform-backend-rg'
+        backendAzureRmResourceGroupName: 'tf-bkend-rg'
         backendAzureRmResourceGroupLocation: 'canadaeast'
         backendAzureRmStorageAccountName: 'storageacctdevopsbootcamp'
         backendAzureRmContainerName: 'storageacctdevopsbootcampcontainer'
