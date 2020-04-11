@@ -37,8 +37,8 @@ stages:
         ensureBackend: true
         backendAzureRmResourceGroupName: 'tf-bkend-rg'
         backendAzureRmResourceGroupLocation: 'canadaeast'
-        backendAzureRmStorageAccountName: 'storageacctdevopsbootcamp'
-        backendAzureRmContainerName: 'storageacctdevopsbootcampcontainer'
+        backendAzureRmStorageAccountName: 'storageacctdevops'
+        backendAzureRmContainerName: 'storageacctdevopscontainer'
         backendAzureRmKey: 'kubernetes-dev.tfstate'
 - stage: TerraformApply
   displayName: Terraform Apply
