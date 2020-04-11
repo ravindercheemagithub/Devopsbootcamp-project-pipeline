@@ -7,7 +7,7 @@ variable environment {
 }
 
 variable location {
-    default = "canadaeast"
+    default = "eastus"
 }
 
 variable node_count {
