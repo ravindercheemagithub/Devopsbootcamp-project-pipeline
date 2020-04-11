@@ -1,0 +1,42 @@
+trigger:
+- master
+
+resources:
+- repo: self
+
+variables:
+  tag: '$(Build.BuildId)'
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+stages:
+- stage: DownloadSecureFile
+  displayName: Download Secure File
+  jobs:  
+  - job: Downloadpublickey
+    displayName: Download publickey
+    steps:
+    - task: DownloadSecureFile@1
+      name: azurersafile
+      inputs:
+        secureFile: 'azurersa'
+    - task: TerraformCLI@0
+      inputs:
+        command: 'init'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes'
+        commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(azurersafile.secureFilePath)'
+        backendType: 'azurerm'
+        backendServiceArm: 'rc-Az-Res-Mgr'
+        ensureBackend: true
+        backendAzureRmResourceGroupName: 'tf-bkend-rg'
+        backendAzureRmResourceGroupLocation: 'eastus'
+        backendAzureRmStorageAccountName: 'storageacctdevops'
+        backendAzureRmContainerName: 'storagedevopscontainer'
+        backendAzureRmKey: 'kubernetesdev.tfstate'
+    - task: TerraformCLI@0
+      inputs:
+        command: 'apply'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes'
+        environmentServiceName: 'rc-Az-Res-Mgr'
+        commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(azurersafile.secureFilePath)'
