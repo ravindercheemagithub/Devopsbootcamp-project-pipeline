@@ -20,6 +20,18 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
+    - task: SonarQubePrepare@4
+      inputs:
+        SonarQube: 'Jiang-sonarqube-connection'
+        scannerMode: 'Other'
+        extraProperties: |
+          # Additional properties that will be passed to the scanner, 
+          # Put one key=value per line, example:
+          # sonar.exclusions=**/*.bin
+          mvn sonar:sonar \
+            -Dsonar.projectKey=exchange-webservice \
+            -Dsonar.host.url=http://52.168.147.29:9000 \
+            -Dsonar.login=95ee831189f762f235d6689bc4a3ed5f701776f9
     - task: Docker@2
       displayName: Build an image
       inputs:
