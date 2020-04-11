@@ -38,8 +38,10 @@ stages:
         backendAzureRmResourceGroupName: 'tf-bkend-rg'
         backendAzureRmResourceGroupLocation: 'canadaeast'
         backendAzureRmStorageAccountName: 'storageacctdevops'
-        backendAzureRmContainerName: 'storageacctdevopscontainer'
-        backendAzureRmKey: 'kubernetes-dev.tfstate'
+        backendAzureRmContainerName: 'storagedevopscontainer'
+        backendAzureRmKey: 'kubernetesdev.tfstate'
+    
+
 - stage: TerraformApply
   displayName: Terraform Apply
   jobs:  
