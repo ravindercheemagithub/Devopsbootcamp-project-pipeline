@@ -59,7 +59,7 @@ stages:
     - task: KubernetesManifest@0
       inputs:
         action: 'deploy'
-        kubernetesServiceConnection: 'azure-kubernetes-connection'
+        kubernetesServiceConnection: 'Ravinder-azure-kubernetes-cluster'
         namespace: 'default'
         manifests: '$(System.ArtifactsDirectory)/configuration/kubernetes/deployment.yaml'
         containers: 'ravindercheemadevops/exchange-webservice:$(tag)'
