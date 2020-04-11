@@ -36,7 +36,7 @@ stages:
         backendServiceArm: 'rc-Az-Res-Mgr'
         ensureBackend: true
         backendAzureRmResourceGroupName: 'tf-bkend-rg'
-        backendAzureRmResourceGroupLocation: 'canadaeast'
+        backendAzureRmResourceGroupLocation: 'eastus'
         backendAzureRmStorageAccountName: 'storageacctdevops'
         backendAzureRmContainerName: 'storagedevopscontainer'
         backendAzureRmKey: 'kubernetesdev.tfstate'
