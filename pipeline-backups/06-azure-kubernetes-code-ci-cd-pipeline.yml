@@ -24,7 +24,7 @@ stages:
     steps:
     - task: Docker@2
       inputs:
-        containerRegistry: 'devopsbootcamp-docker-hub'
+        containerRegistry: 'ravinder-dockerhub'
         repository: 'ravindercheemadevops/exchange-webservice'
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
