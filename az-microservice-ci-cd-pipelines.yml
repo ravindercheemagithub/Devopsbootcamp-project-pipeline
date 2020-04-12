@@ -51,8 +51,7 @@ stages:
         SourceFolder: '$(System.DefaultWorkingDirectory)'
         Contents: |
           **/*.yaml
-          **/currency-exchange.jar
-          **/surefire-reports/*
+          target/*
         TargetFolder: '$(Build.ArtifactStagingDirectory)'
     - task: PublishBuildArtifacts@1
       inputs:
