@@ -35,9 +35,24 @@ stages:
         Contents: |
           **/*.yaml
           target/*
-        TargetFolder: '$(Build.ArtifactStagingDirectory)'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)/prod'
     - task: PublishBuildArtifacts@1
       inputs:
-        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-        ArtifactName: 'manifests'
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)/prod'
+        ArtifactName: 'prodmanifests'
+        publishLocation: 'Container'
+    
+    - task: S3Download@1
+      inputs:
+        awsCredentials: 'aws-s3-connection'
+        regionName: 'us-east-2'
+        bucketName: 'deviousbootcamp-canada'
+        sourceFolder: 'qa-artifacts'
+        globExpressions: '*.yaml'
+        targetFolder: '$(Build.ArtifactStagingDirectory)/qa'
+
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)/qa'
+        ArtifactName: 'qamanifests'
         publishLocation: 'Container'
